@@ -4,7 +4,7 @@
 
 @InProceedings{pmlr-v235-zhang24ap,
   title = 	 {Nonparametric Teaching of Implicit Neural Representations},
-  author =       {Zhang, Chen* and Luo, Steven Tin Sui and Li*, Jason Chun Lok and Wu, Yik Chung and Wong, Ngai},
+  author =       {Zhang, Chen* and Luo, Steven Tin Sui* and Li, Jason Chun Lok and Wu, Yik Chung and Wong, Ngai},
   booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
   pages = 	 {59435--59458},
   year = 	 {2024},
@@ -13,11 +13,11 @@
   series = 	 {Proceedings of Machine Learning Research},
   month = 	 {21--27 Jul},
   publisher =    {PMLR},
-  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v235/main/assets/zhang24ap/zhang24ap.pdf},
-  url = 	 {https://proceedings.mlr.press/v235/zhang24ap.html},
+  arxiv = {https://arxiv.org/abs/2405.10531},
+  code = {https://github.com/chen2hang/INT_NonparametricTeaching},
   website = {https://chen2hang.github.io/_publications/nonparametric_teaching_of_implicit_neural_representations/int.html},
   preview = {nmt_thumbnail.png},
-  abstract = 	 {We investigate the learning of implicit neural representation (INR) using an overparameterized multilayer perceptron (MLP) via a novel nonparametric teaching perspective. The latter offers an efficient example selection framework for teaching nonparametrically defined (viz. non-closed-form) target functions, such as image functions defined by 2D grids of pixels. To address the costly training of INRs, we propose a paradigm called Implicit Neural Teaching (INT) that treats INR learning as a nonparametric teaching problem, where the given signal being fitted serves as the target function. The teacher then selects signal fragments for iterative training of the MLP to achieve fast convergence. By establishing a connection between MLP evolution through parameter-based gradient descent and that of function evolution through functional gradient descent in nonparametric teaching, we show <em>for the first time</em> that teaching an overparameterized MLP is consistent with teaching a nonparametric learner. This new discovery readily permits a convenient drop-in of nonparametric teaching algorithms to broadly enhance INR training efficiency, demonstrating 30%+ training time savings across various input modalities.}
+  selected = {true}
 }
 
 
@@ -28,7 +28,9 @@ author={Jason Chun Lok Li* and Steven Tin Sui Luo* and Le Xu and Ngai Wong},
 booktitle={The Twelfth International Conference on Learning Representations},
 year={2024},
 url={https://openreview.net/forum?id=kMp8zCsXNb},
-
+preview={asmr_thumbnail.png},
+arxiv={https://arxiv.org/abs/2405.12398},
+code={https://github.com/stevolopolis/asmr},
 selected={true}
 }
 
@@ -40,5 +42,7 @@ booktitle={MAIN},
 year={2023},
 url={https://drive.google.com/file/d/1dEt2Xyut97sVZ7PD7dxYP_Fb7sM0k91O/view?usp=drive_link},
 
+poster={main_poster.pdf},
+preview={main_thumbnail.png},
 selected={true}
 }
