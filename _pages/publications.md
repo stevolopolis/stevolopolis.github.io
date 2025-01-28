@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: publications
-description: my little contributions to the knowledge framework of machine learning.
+description: my little contributions to machine learning.
 nav: true
 nav_order: 1
 ---
