@@ -63,6 +63,14 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+:root {
+  /* Site accent: link hover, sidenote markers, abstract rule, caret.
+     #157f3c is 5.08:1 on white (WCAG AA); the old orange was 2.37:1. */
+  --accent: #157f3c;
+  /* Very light wash of the accent, used behind banners. */
+  --accent-tint: #f3f8f4;
+}
+
 a {
   color: #1772d0;
   text-decoration: none;
@@ -70,7 +78,7 @@ a {
 
 a:focus,
 a:hover {
-  color: #f09228;
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -103,22 +111,23 @@ h2 {
 }
 
 .name {
-  padding-top: 20px;
-  margin: 0;
+  padding-top: 8px;
+  margin: 0 0 16px;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 32px;
 }
 
 .one {
   width: 160px;
-  height: 160px;
   position: relative;
+  line-height: 0;
 }
 
 .two {
   width: 160px;
-  height: 160px;
   position: absolute;
+  top: 0;
+  left: 0;
   transition: opacity .2s ease-in-out;
   -moz-transition: opacity .2s ease-in-out;
   -webkit-transition: opacity .2s ease-in-out;
@@ -139,4 +148,422 @@ span.highlight {
     padding: 20px;
     display: inline-block;
     border-radius: 10px;
+}
+/* ------------------------------------------------------------------ */
+/* News list -- generated from news.md by build_news.py               */
+/* ------------------------------------------------------------------ */
+
+ul.news {
+  margin: 0;
+  padding-left: 17px;
+  list-style-type: disc;
+}
+
+ul.news li {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: 2px;
+  margin-bottom: 5px;
+}
+
+ul.news li:last-child {
+  margin-bottom: 0;
+}
+
+ul.news li::marker {
+  color: #b0b0b0;
+}
+
+/* Dates form a left column; wrapped lines hang past it, not under it. */
+.news-date {
+  display: inline-block;
+  min-width: 64px;
+  color: #888;
+}
+
+/* ------------------------------------------------------------------ */
+/* Blog list on the homepage                                          */
+/* ------------------------------------------------------------------ */
+
+.blog-date {
+  color: #888;
+  font-size: 13px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Blog post pages                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Exactly the homepage column: 800px wide, 16px inset, centred. Sidenotes
+   hang outside it on the right, so the running text of a post lines up with
+   the running text of the homepage. */
+.post {
+  box-sizing: border-box;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 12px 16px 56px;
+}
+
+.post-nav {
+  font-size: 13px;
+  margin: 0 0 24px;
+}
+
+.post-nav-bottom {
+  margin: 48px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.post-title {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+.post-date {
+  color: #888;
+  font-size: 13px;
+  margin: 0 0 28px;
+}
+
+.post-abstract,
+.post-body blockquote {
+  padding: 14px 18px;
+  background: var(--accent-tint);
+  border-left: 3px solid var(--accent);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.post-abstract {
+  margin: 0 0 34px;
+}
+
+.post-abstract-label {
+  display: block;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.post-body {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.post-body h2 {
+  margin: 32px 0 10px;
+}
+
+.post-body h3 {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 28px 0 8px;
+}
+
+.post-body p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 22px;
+  margin: 0 0 18px;
+}
+
+.post-body li {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 5px;
+}
+
+.post-body blockquote {
+  margin: 0 0 18px;
+}
+
+/* The banner already supplies the padding; don't double it with the
+   trailing paragraph's margin. */
+.post-body blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.post-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-body code {
+  font-family: Menlo, Consolas, 'Courier New', monospace;
+  font-size: 13px;
+  background: #f5f5f5;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.post-body pre {
+  background: #f7f7f7;
+  border: 1px solid #ececec;
+  border-radius: 4px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  margin: 0 0 18px;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.post-body table {
+  border-collapse: collapse;
+  margin: 0 0 18px;
+  font-size: 14px;
+}
+
+.post-body th,
+.post-body td {
+  border: 1px solid #e2e2e2;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.post-body th {
+  background: #f7f7f7;
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 32px 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sidenotes -- footnotes moved into the right margin by build_blog.py */
+/* ------------------------------------------------------------------ */
+
+.sidenote-ref {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 10px;
+  padding-left: 1px;
+}
+
+/* Floated (not absolutely positioned) so consecutive notes stack instead
+   of overlapping. The negative margin lifts it out of the text column. */
+.sidenote {
+  float: right;
+  clear: right;
+  width: 215px;
+  margin-right: -240px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #555;
+  text-align: left;
+}
+
+.sidenote-num {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 10px;
+  padding-right: 3px;
+}
+
+.sidenote code {
+  font-size: 11.5px;
+}
+
+/* The 640px frame plus a 240px margin needs ~1090px of viewport; below that,
+   sidenotes fold back into the text as indented blocks. */
+@media (max-width: 1099px) {
+  .sidenote {
+    float: none;
+    display: block;
+    width: auto;
+    margin: 10px 0 18px;
+    padding: 8px 12px;
+    background: #fafafa;
+    border-left: 2px solid #e5e5e5;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Homepage density                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Default <p> margins stack with the table cell padding, which is what
+   made the page feel airy. Scoped to td so blog pages are unaffected. */
+td p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+td p:last-child {
+  margin-bottom: 0;
+}
+
+td h2 {
+  margin-bottom: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Collapsible <details> blocks inside a post                         */
+/* ------------------------------------------------------------------ */
+
+/* A dropdown should read as an ordinary sentence -- no box, no fill --
+   distinguished only by the caret in front of it. */
+.post-body details {
+  margin: 0 0 16px;
+}
+
+.post-body summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Suppress the browser's own disclosure triangle in favour of the caret below. */
+.post-body summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-body summary::before {
+  content: "\25B8";
+  display: inline-block;
+  width: 0.9em;
+  color: var(--accent);
+}
+
+.post-body details[open] summary::before {
+  content: "\25BE";
+}
+
+.post-body summary:hover {
+  color: var(--accent);
+}
+
+/* Expanded content indents to sit under the summary text, past the caret. */
+.post-body details > *:not(summary) {
+  margin-left: 0.9em;
+}
+
+.post-body details > ul,
+.post-body details > ol {
+  margin-top: 8px;
+}
+
+.post-body details > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Wide content scrolls inside the column rather than widening it. */
+.post-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Justified body text                                                */
+/* ------------------------------------------------------------------ */
+
+/* Centred blocks (the name, the link row) carry inline text-align, which
+   beats this rule, so they stay centred. */
+td p,
+.post-body p,
+.post-body li,
+.post-abstract {
+  text-align: justify;
+}
+
+/* Too narrow to justify without rivers of whitespace. */
+.sidenote,
+.blog-date,
+.post-date {
+  text-align: left;
+}
+
+/* ------------------------------------------------------------------ */
+/* Abstracts that carry a list, and rendered math                      */
+/* ------------------------------------------------------------------ */
+
+.post-abstract > p {
+  margin: 0 0 8px;
+}
+
+.post-abstract ul,
+.post-abstract ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.post-abstract li {
+  margin-bottom: 3px;
+  text-align: left;
+}
+
+.post-abstract > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Display equations get room to breathe and scroll rather than overflow. */
+mjx-container[display="true"] {
+  margin: 20px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Blog-list abstracts on the homepage, which may carry their own list. */
+.blog-abstract p {
+  margin: 0 0 8px;
+  text-align: justify;
+}
+
+.blog-abstract ul,
+.blog-abstract ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.blog-abstract li {
+  margin-bottom: 3px;
+}
+
+.blog-abstract > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Entry separation                                                   */
+/* ------------------------------------------------------------------ */
+
+/* A hairline between consecutive entries in Research / Blogs / Projects.
+   border-spacing is 0 on these tables, so the cell padding sets the band
+   height and the rule sits evenly between two entries. */
+table.entries td {
+  border-bottom: 1px solid #ececec;
+}
+
+/* No trailing rule under the last entry of a section. */
+table.entries tr:last-child td {
+  border-bottom: 0;
+}
+
+/* A slightly stronger rule between sections than the one between entries,
+   so the two levels of division read differently. Applied to the cell, not
+   the table, because the tables carry an inline border:0px. */
+table.section > tbody > tr > td {
+  border-top: 1px solid #dcdcdc;
 }
