@@ -1,6 +1,6 @@
 ---
 title: Reasons to do an AI PhD in 2026
-date: 2026/08/27
+date: 2026/08/28
 abstract: To discover insights about intelligence && To discover capabilities that don't lie on the scaling axis yet -- inherenent intelligence. 
 draft: false
 ---
