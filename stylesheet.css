@@ -78,7 +78,7 @@ a {
   text-decoration: none;
   /* Lato has no semibold face, so nudge links to a faux mid-weight by
      thickening the 400 glyphs; a full 700 read as too heavy. */
-  -webkit-text-stroke: 0.3px currentColor;
+  -webkit-text-stroke: 0.2px currentColor;
 }
 
 a:focus,
