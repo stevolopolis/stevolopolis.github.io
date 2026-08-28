@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import math
 import os
 import re
 import sys
@@ -417,6 +418,34 @@ def indent_block(text: str, spaces: str) -> str:
     return "\n".join(out)
 
 
+# Average adult silent-reading pace for prose; used to turn a word count into
+# the "Estimated Reading Time" shown under each title.
+READING_WPM = 200
+
+MATH_SPAN_RE = re.compile(r"\\\(.*?\\\)|\\\[.*?\\\]", re.DOTALL)
+TAG_RE = re.compile(r"<[^>]+>")
+
+
+def reading_stats(content_html: str) -> tuple[int, int]:
+    """Return (word_count, minutes) for a post's rendered body.
+
+    Math spans (LaTeX between \\( \\) or \\[ \\]) and HTML tags are dropped first
+    so command names and markup don't inflate the count; the sidenote text that
+    was folded inline is left in, since a reader does read it.
+    """
+    text = MATH_SPAN_RE.sub(" ", content_html)
+    text = TAG_RE.sub(" ", text)
+    words = len(html.unescape(text).split())
+    return words, max(1, math.ceil(words / READING_WPM))
+
+
+def reading_meta(post: dict) -> str:
+    """The '| N words | Estimated Reading Time: Mmin' suffix for a date row.
+    Contains no HTML-special characters, so it is safe to append after escaping
+    the date it follows."""
+    return f' | {post["words"]:,} words | Estimated Reading Time: {post["read_min"]}min'
+
+
 def load_posts() -> list[dict]:
     if not BLOGS_DIR.is_dir():
         return []
@@ -449,6 +478,7 @@ def load_posts() -> list[dict]:
         protected, math = protect_math(body)
         rendered = restore_math(md.reset().convert(protected), math) if body.strip() else ""
         content = sidenotes(rendered, path.name) if body.strip() else ""
+        words, read_min = reading_stats(content)
         posts.append(
             {
                 "slug": path.stem,
@@ -460,6 +490,8 @@ def load_posts() -> list[dict]:
                 "draft": is_draft,
                 "content": content,
                 "math": bool(math),
+                "words": words,
+                "read_min": read_min,
             }
         )
 
@@ -476,7 +508,7 @@ def render_page(post: dict) -> str:
         mathjax=MATHJAX if post.get("math") else "",
         title=html.escape(post["title"]),
         description=html.escape(description, quote=True),
-        date=html.escape(post["date"]),
+        date=html.escape(post["date"]) + reading_meta(post),
         abstract=abstract,
         content=indent_block(post["content"], "        "),
     )
@@ -494,7 +526,7 @@ def render_index_rows(posts: list[dict], indent: str) -> str:
             f'{indent}    <a href="blogs/{post["slug"]}.html">'
             f'<span class="papertitle">{html.escape(post["title"])}</span></a>\n'
             f'{indent}    <br>\n'
-            f'{indent}    <span class="blog-date">{html.escape(post["date"])}</span>\n'
+            f'{indent}    <span class="blog-date">{html.escape(post["date"])}{reading_meta(post)}</span>\n'
             f'{indent}    <p></p>\n'
             f'{indent}    <div class="blog-abstract">\n'
             f'{indent_block(post["abstract"], indent + "      ")}\n'
