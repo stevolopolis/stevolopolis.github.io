@@ -76,6 +76,9 @@
 a {
   color: var(--accent);
   text-decoration: none;
+  /* Lato has no semibold face, so nudge links to a faux mid-weight by
+     thickening the 400 glyphs; a full 700 read as too heavy. */
+  -webkit-text-stroke: 0.3px currentColor;
 }
 
 a:focus,
@@ -110,6 +113,8 @@ h2 {
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 700;
+  /* Already bold; don't inherit the link stroke and go over-heavy. */
+  -webkit-text-stroke: 0;
 }
 
 .name {

@@ -1,0 +1,3 @@
+# Local-only debug scratch (link-color iteration, etc.) — never deploy
+_linkcolor_debug.html
+.debugserver.log
