@@ -64,22 +64,24 @@
 }
 
 :root {
-  /* Site accent: link hover, sidenote markers, abstract rule, caret.
+  /* Site accent: links, sidenote markers, abstract rule, caret.
      #157f3c is 5.08:1 on white (WCAG AA); the old orange was 2.37:1. */
   --accent: #157f3c;
+  /* Darker shade for link hover (7.0:1 on white). */
+  --accent-dark: #0e5b2a;
   /* Very light wash of the accent, used behind banners. */
   --accent-tint: #f3f8f4;
 }
 
 a {
-  color: #1772d0;
+  color: var(--accent);
   text-decoration: none;
 }
 
 a:focus,
 a:hover {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--accent-dark);
+  text-decoration: underline;
 }
 
 body,

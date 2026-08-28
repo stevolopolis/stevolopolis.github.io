@@ -440,10 +440,10 @@ def reading_stats(content_html: str) -> tuple[int, int]:
 
 
 def reading_meta(post: dict) -> str:
-    """The '| N words | Estimated Reading Time: Mmin' suffix for a date row.
+    """The '| Estimated Reading Time: Mmin | N words' suffix for a date row.
     Contains no HTML-special characters, so it is safe to append after escaping
     the date it follows."""
-    return f' | {post["words"]:,} words | Estimated Reading Time: {post["read_min"]}min'
+    return f' | Estimated Reading Time: {post["read_min"]}min | {post["words"]:,} words'
 
 
 def load_posts() -> list[dict]:
