@@ -12,5 +12,5 @@
 
 - 2026/09: Started my PhD at NYU.
 - 2026/08: Tried to [blog](blogs/260827-reasons-to-do-an-ai-phd-in-2026.html) some thoughts for the first time.
-- 2026/06: Started by internship at Tesla AI working on Digital Optimus.
+- 2026/06: Started my internship at Tesla AI working on Digital Optimus.
 - 2026/06: Graduated from UofT.

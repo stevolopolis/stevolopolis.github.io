@@ -1,7 +1,7 @@
 ---
 title: Reasons to do an AI PhD in 2026
 date: 2026/08/27
-abstract: To do AI research to discover insights about intelligence && To discover capabilities that don't lie on the scaling axis yet -- inherenent intelligence. 
+abstract: To discover insights about intelligence && To discover capabilities that don't lie on the scaling axis yet -- inherenent intelligence. 
 draft: false
 ---
 
@@ -9,7 +9,7 @@ draft: false
 
 Despite the rapid progress in frontier AI, I have felt increasing dissatisfaction whenever new announcements come out. And don't get me wrong, I am always impressed and surprised by the capability improvements we've been seeing.[^1] But this made me question whether my love for AI was as pure as I thought, and whether my passion was strong enough to commit to a PhD. Perhaps someone who truly loves AI would celebrate all the wins and advancements we've had?
 
-At the same time, a part of me often reminds me of the joy from running experiments by myself, and the peace from reading classical literature, whether it is Graves' Neural Turing Machine, Schmidhuber's Fast Weight Programmers, or my advisor Mengye's recent philosophy article "The Self Requires Learning". Interestingly, little of this joy had to do with how capable these ideas made the models.
+At the same time, a part of me often reminds me of the joy from running experiments by myself, and the peace from reading classical literature, whether it is Graves' Neural Turing Machine or Schmidhuber's Fast Weight Programmers. Interestingly, little of this joy had to do with how capable these ideas made the models.
 
 How could I feel dissatisfied by the field's newest wins, yet find so much peace in its oldest ideas? It took me a while to reconcile the two, but I think I can finally put it into words:
 
@@ -56,7 +56,7 @@ $$\text{learning efficiency} \;\times\; \text{data availability} \;\propto\; \te
 
 To be clear, for capabilities already mapped onto this equation, I expect scale to keep winning. I once underestimated this myself by fixating on the learning inefficiency term, while the data availability term kept growing. This is especially true considering how "chat" is such a universal interface for almost all use cases and how much human feedback is available from good product-data flywheels.
 
-On the other end, people often abuse the bitter lesson nowadays to dismiss any attempt that does not utilize scale. What they don't realize is that many capabilities can't even be mapped onto this axis yet, and a lot of creative and down-to-earth efforts have to be tried before we even find the right mapping. How does one even define creativity or continual learning (mapping onto the RHS; some early examples include Mengye's creativity work and "When does continual learning need learning")? Even if we could define them one day, how are we supposed to have large enough training data or environments to elicit these behaviors? And for cases where data availability is inevitably scarce, one must rely on efficient continual learning, which we are nowhere near solving yet.
+On the other end, people often abuse the bitter lesson nowadays to dismiss any attempt that does not utilize scale. What they don't realize is that many capabilities can't even be mapped onto this axis yet, and a lot of creative and down-to-earth efforts have to be tried before we even find the right mapping. How does one even define creativity or continual learning (mapping onto the RHS; some early examples for [creativity](https://arxiv.org/pdf/2605.16477) and [continual learning](https://philarchive.org/archive/RENTSR))? Even if we could define them one day, how are we supposed to have large enough training data or environments to elicit these behaviors? And for cases where data availability is inevitably scarce, one must rely on efficient continual learning, which we are nowhere near solving yet.
 
 This kind of creative, ground-up work (defining these intelligences and finding their mappings onto the axis) is exactly the kind of fundamental capability research that academia has always been the source of.
 
