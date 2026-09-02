@@ -74,6 +74,22 @@ MATHJAX = """    <script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 """
 
+# Pageview tracking + a "N views" suffix on the date line. The counter fetch
+# 404s (and silently shows nothing) until "Allow adding visitor counts to your
+# website" is enabled in the GoatCounter site settings.
+GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+    <script>
+      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(location.pathname) + ".json")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data) return;
+          const count = data.count.trim().replace(/\\s/g, ",");
+          const date = document.querySelector(".post-date");
+          if (date) date.append(" | " + count + (count === "1" ? " view" : " views"));
+        })
+        .catch(() => {});
+    </script>"""
+
 
 def protect_math(text: str) -> tuple[str, list[tuple[str, bool]]]:
     """Swap math spans for inert tokens. Code blocks and code spans are skipped,
@@ -365,6 +381,7 @@ PAGE_TEMPLATE = """<!DOCTYPE HTML>
       </div>
       <p class="post-nav post-nav-bottom"><a href="../index.html">&larr; Back to homepage</a></p>
     </div>
+{goatcounter}
   </body>
 </html>
 """
@@ -506,6 +523,7 @@ def render_page(post: dict) -> str:
     description = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", post["abstract"])).strip()[:160]
     return PAGE_TEMPLATE.format(
         mathjax=MATHJAX if post.get("math") else "",
+        goatcounter=GOATCOUNTER,
         title=html.escape(post["title"]),
         description=html.escape(description, quote=True),
         date=html.escape(post["date"]) + reading_meta(post),
