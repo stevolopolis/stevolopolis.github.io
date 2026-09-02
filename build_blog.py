@@ -74,18 +74,23 @@ MATHJAX = """    <script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 """
 
-# Pageview tracking + a "N views" suffix on the date line. Both count.js and
-# the lookup below use the <link rel="canonical"> path rather than the address
-# bar: GitHub Pages serves URLs case-insensitively, so otherwise one page's
-# views split across spellings (/Blogs/... vs /blogs/...). A path with no
-# recorded views answers HTTP 404 but still carries a JSON count of "0", so
-# parse the body regardless of status; if "Allow adding visitor counts to your
-# website" is disabled in the GoatCounter settings, the HTML error page makes
-# r.json() reject and nothing is shown.
-GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+# Visitor tracking + a "N views" suffix on the date line. Per GoatCounter's
+# visitor-counter docs, the lookup path comes from goatcounter.get_data()['p']
+# -- the exact string count.js just recorded -- so recording and display can
+# never disagree on spelling (GitHub Pages serves URLs case-insensitively, so
+# computing the path independently split one page's views across /Blogs/...
+# and /blogs/...). count.js is loaded without async so get_data() exists by
+# the next script; the canonical link is the fallback when a blocker stops
+# count.js, and it also keeps recorded paths canonical. The counter JSON
+# answers HTTP 404 with a count of "0" for a never-visited path, so parse the
+# body regardless of status; the count is visitors (session-deduped), not raw
+# reloads.
+GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" src="https://gc.zgo.at/count.js"></script>
     <script>
       const canonical = document.querySelector('link[rel="canonical"]');
-      const path = canonical ? new URL(canonical.href).pathname : location.pathname;
+      const path = window.goatcounter && goatcounter.get_data
+        ? goatcounter.get_data().p
+        : (canonical ? new URL(canonical.href).pathname : location.pathname);
       fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json")
         .then((r) => r.json())
         .then((data) => {
