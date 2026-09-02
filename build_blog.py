@@ -74,14 +74,19 @@ MATHJAX = """    <script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 """
 
-# Pageview tracking + a "N views" suffix on the date line. A path with no
+# Pageview tracking + a "N views" suffix on the date line. Both count.js and
+# the lookup below use the <link rel="canonical"> path rather than the address
+# bar: GitHub Pages serves URLs case-insensitively, so otherwise one page's
+# views split across spellings (/Blogs/... vs /blogs/...). A path with no
 # recorded views answers HTTP 404 but still carries a JSON count of "0", so
 # parse the body regardless of status; if "Allow adding visitor counts to your
 # website" is disabled in the GoatCounter settings, the HTML error page makes
 # r.json() reject and nothing is shown.
 GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script>
-      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(location.pathname) + ".json")
+      const canonical = document.querySelector('link[rel="canonical"]');
+      const path = canonical ? new URL(canonical.href).pathname : location.pathname;
+      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json")
         .then((r) => r.json())
         .then((data) => {
           const count = data.count.trim().replace(/\\s/g, ",");
@@ -366,6 +371,7 @@ PAGE_TEMPLATE = """<!DOCTYPE HTML>
     <meta name="author" content="Steven Luo">
     <meta name="description" content="{description}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://stevolopolis.github.io/blogs/{slug}.html">
     <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../stylesheet.css">
 {mathjax}
@@ -525,6 +531,7 @@ def render_page(post: dict) -> str:
     return PAGE_TEMPLATE.format(
         mathjax=MATHJAX if post.get("math") else "",
         goatcounter=GOATCOUNTER,
+        slug=post["slug"],
         title=html.escape(post["title"]),
         description=html.escape(description, quote=True),
         date=html.escape(post["date"]) + reading_meta(post),
