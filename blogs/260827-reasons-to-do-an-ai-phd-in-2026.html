@@ -75,7 +75,7 @@
       const path = window.goatcounter && goatcounter.get_data
         ? goatcounter.get_data().p
         : (canonical ? new URL(canonical.href).pathname : location.pathname);
-      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json")
+      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json?start=2020-01-01")
         .then((r) => r.json())
         .then((data) => {
           const count = data.count.trim().replace(/\s/g, ",");

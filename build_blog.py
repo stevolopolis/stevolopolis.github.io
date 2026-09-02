@@ -84,14 +84,17 @@ MATHJAX = """    <script>
 # count.js, and it also keeps recorded paths canonical. The counter JSON
 # answers HTTP 404 with a count of "0" for a never-visited path, so parse the
 # body regardless of status; the count is visitors (session-deduped), not raw
-# reloads.
+# reloads. start=2020-01-01 pins the all-time range -- GoatCounter's CDN
+# caches counter responses for a while (so displayed counts lag recent
+# visits), and the explicit range also keys the cache separately from the
+# bare URL.
 GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" src="https://gc.zgo.at/count.js"></script>
     <script>
       const canonical = document.querySelector('link[rel="canonical"]');
       const path = window.goatcounter && goatcounter.get_data
         ? goatcounter.get_data().p
         : (canonical ? new URL(canonical.href).pathname : location.pathname);
-      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json")
+      fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(path) + ".json?start=2020-01-01")
         .then((r) => r.json())
         .then((data) => {
           const count = data.count.trim().replace(/\\s/g, ",");
