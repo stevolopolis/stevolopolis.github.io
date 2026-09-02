@@ -71,9 +71,8 @@
     <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script>
       fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(location.pathname) + ".json")
-        .then((r) => (r.ok ? r.json() : null))
+        .then((r) => r.json())
         .then((data) => {
-          if (!data) return;
           const count = data.count.trim().replace(/\s/g, ",");
           const date = document.querySelector(".post-date");
           if (date) date.append(" | " + count + (count === "1" ? " view" : " views"));

@@ -74,15 +74,16 @@ MATHJAX = """    <script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 """
 
-# Pageview tracking + a "N views" suffix on the date line. The counter fetch
-# 404s (and silently shows nothing) until "Allow adding visitor counts to your
-# website" is enabled in the GoatCounter site settings.
+# Pageview tracking + a "N views" suffix on the date line. A path with no
+# recorded views answers HTTP 404 but still carries a JSON count of "0", so
+# parse the body regardless of status; if "Allow adding visitor counts to your
+# website" is disabled in the GoatCounter settings, the HTML error page makes
+# r.json() reject and nothing is shown.
 GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script>
       fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(location.pathname) + ".json")
-        .then((r) => (r.ok ? r.json() : null))
+        .then((r) => r.json())
         .then((data) => {
-          if (!data) return;
           const count = data.count.trim().replace(/\\s/g, ",");
           const date = document.querySelector(".post-date");
           if (date) date.append(" | " + count + (count === "1" ? " view" : " views"));

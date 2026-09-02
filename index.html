@@ -398,12 +398,12 @@
         </td>
       </tr>
     </table>
+    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script>
       document.querySelectorAll(".blog-date[data-path]").forEach((el) => {
         fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(el.dataset.path) + ".json")
-          .then((r) => (r.ok ? r.json() : null))
+          .then((r) => r.json())
           .then((data) => {
-            if (!data) return;
             const count = data.count.trim().replace(/\s/g, ",");
             el.append(" | " + count + (count === "1" ? " view" : " views"));
           })
