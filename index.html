@@ -400,16 +400,5 @@
       </tr>
     </table>
     <script data-goatcounter="https://stevolopolis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-    <script>
-      document.querySelectorAll(".blog-date[data-path]").forEach((el) => {
-        fetch("https://stevolopolis.goatcounter.com/counter/" + encodeURIComponent(el.dataset.path) + ".json?start=2020-01-01")
-          .then((r) => r.json())
-          .then((data) => {
-            const count = data.count.trim().replace(/\s/g, ",");
-            el.append(" | " + count + (count === "1" ? " view" : " views"));
-          })
-          .catch(() => {});
-      });
-    </script>
   </body>
 </html>

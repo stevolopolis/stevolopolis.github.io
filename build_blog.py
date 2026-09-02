@@ -74,21 +74,28 @@ MATHJAX = """    <script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 """
 
-# Visitor tracking + a "N views" suffix on the date line. Per GoatCounter's
-# visitor-counter docs, the lookup path comes from goatcounter.get_data()['p']
-# -- the exact string count.js just recorded -- so recording and display can
-# never disagree on spelling (GitHub Pages serves URLs case-insensitively, so
-# computing the path independently split one page's views across /Blogs/...
-# and /blogs/...). count.js is loaded without async so get_data() exists by
-# the next script; the canonical link is the fallback when a blocker stops
-# count.js, and it also keeps recorded paths canonical. The counter JSON
-# answers HTTP 404 with a count of "0" for a never-visited path, so parse the
-# body regardless of status; the count is visitors (session-deduped), not raw
-# reloads. start=2020-01-01 pins the all-time range -- GoatCounter's CDN
-# caches counter responses for a while (so displayed counts lag recent
-# visits), and the explicit range also keys the cache separately from the
-# bare URL.
-GOATCOUNTER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" src="https://gc.zgo.at/count.js"></script>
+# Tracking always runs so counts accumulate on the GoatCounter dashboard;
+# SHOW_VIEW_COUNTS only controls the "| N views" suffix on each post's date
+# line. When flipping it on, also restore the matching row script in
+# index.html (removed alongside this flag; it's in git history).
+SHOW_VIEW_COUNTS = False
+
+GOATCOUNTER_TRACKER = """    <script data-goatcounter="https://stevolopolis.goatcounter.com/count" src="https://gc.zgo.at/count.js"></script>"""
+
+# Per GoatCounter's visitor-counter docs, the lookup path comes from
+# goatcounter.get_data()['p'] -- the exact string count.js just recorded --
+# so recording and display can never disagree on spelling (GitHub Pages
+# serves URLs case-insensitively, so computing the path independently split
+# one page's views across /Blogs/... and /blogs/...). count.js is loaded
+# without async so get_data() exists by the next script; the canonical link
+# is the fallback when a blocker stops count.js, and it also keeps recorded
+# paths canonical. The counter JSON answers HTTP 404 with a count of "0" for
+# a never-visited path, so parse the body regardless of status; the count is
+# visitors (session-deduped), not raw reloads. start=2020-01-01 pins the
+# all-time range -- GoatCounter's CDN caches counter responses for a while
+# (so displayed counts lag recent visits), and the explicit range also keys
+# the cache separately from the bare URL.
+GOATCOUNTER_DISPLAY = """
     <script>
       const canonical = document.querySelector('link[rel="canonical"]');
       const path = window.goatcounter && goatcounter.get_data
@@ -538,7 +545,8 @@ def render_page(post: dict) -> str:
     description = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", post["abstract"])).strip()[:160]
     return PAGE_TEMPLATE.format(
         mathjax=MATHJAX if post.get("math") else "",
-        goatcounter=GOATCOUNTER,
+        goatcounter=GOATCOUNTER_TRACKER
+        + (GOATCOUNTER_DISPLAY if SHOW_VIEW_COUNTS else ""),
         slug=post["slug"],
         title=html.escape(post["title"]),
         description=html.escape(description, quote=True),
