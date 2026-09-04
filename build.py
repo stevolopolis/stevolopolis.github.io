@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 INDEX_HTML = ROOT / "index.html"
-STEPS = ["build_news.py", "build_blog.py"]
+STEPS = ["build_news.py", "build_blog.py", "build_sitemap.py"]
 
 # The footer's "Last updated" date is rewritten between these markers, so it
 # tracks the build date without anyone editing index.html directly.

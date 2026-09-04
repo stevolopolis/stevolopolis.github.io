@@ -386,7 +386,7 @@ PAGE_TEMPLATE = """<!DOCTYPE HTML>
     <meta name="author" content="Steven Luo">
     <meta name="description" content="{description}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="https://stevolopolis.github.io/blogs/{slug}.html">
+    <link rel="canonical" href="https://steventsluo.com/blogs/{slug}.html">
     <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../stylesheet.css">
 {mathjax}

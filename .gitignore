@@ -1,3 +1,6 @@
 # Local-only debug scratch (link-color iteration, etc.) — never deploy
 _linkcolor_debug.html
 .debugserver.log
+
+# Python bytecode cache (build_sitemap.py imports build_blog)
+__pycache__/
